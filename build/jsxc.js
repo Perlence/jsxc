@@ -1,16 +1,3 @@
-/*!
- * jsxc v2.1.5 - 2015-11-17
- * 
- * Copyright (c) 2015 Klaus Herberth <klaus@jsxc.org> <br>
- * Released under the MIT license
- * 
- * Please see http://www.jsxc.org/
- * 
- * @author Klaus Herberth <klaus@jsxc.org>
- * @version 2.1.5
- * @license MIT
- */
-
 /*! This file is concatenated for the browser. */
 
 var jsxc = null, RTC = null, RTCPeerconnection = null;
@@ -25,7 +12,7 @@ var jsxc = null, RTC = null, RTCPeerconnection = null;
  */
 jsxc = {
    /** Version of jsxc */
-   version: '2.1.5',
+   version: '< $ app.version $ >',
 
    /** True if i'm the master */
    master: false,
@@ -1495,7 +1482,7 @@ jsxc.xmpp = {
 
          var error = $(presence).find('error');
 
-         //TODO display error message
+         //@TODO display error message
          jsxc.error('[XMPP] ' + error.attr('code') + ' ' + error.find(">:first-child").prop('tagName'));
          return true;
       }
@@ -4863,7 +4850,7 @@ jsxc.muc = {
                var roomName = $(stanza).find('identity').attr('name');
                var subject = $(stanza).find('field[var="muc#roominfo_subject"]').attr('label');
 
-               //TODO display subject, number of occupants, etc.
+               //@TODO display subject, number of occupants, etc.
 
                discoReceived(roomName, subject);
             }, function() {
@@ -4922,7 +4909,7 @@ jsxc.muc = {
       }, function() {
          jsxc.debug('Could not load room configuration');
 
-         //TODO show error
+         //@TODO show error
       });
    },
 
@@ -4968,7 +4955,7 @@ jsxc.muc = {
          }, function() {
             jsxc.warn('Could not save room configuration.');
 
-            //TODO display error
+            //@TODO display error
          });
 
          jsxc.gui.dialog.close();
@@ -5476,7 +5463,7 @@ jsxc.muc = {
             }, function() {
                jsxc.warn('Could not save cached room configuration.');
 
-               //TODO display error
+               //@TODO display error
             });
          } else {
             jsxc.gui.showSelectionDialog({
@@ -8341,7 +8328,10 @@ jsxc.webrtc = {
       var bid = jsxc.jidToBid(session.peer);
 
       if (this.localStream) {
-         this.localStream.stop();
+         var tracks = this.localStream.getTracks();
+         tracks.forEach(function(track) {
+            track.stop();
+         });
       }
 
       if ($('.jsxc_videoContainer').length) {
@@ -8426,7 +8416,7 @@ jsxc.webrtc = {
    onRemoteStreamRemoved: function(session) {
       this.setStatus('Remote stream for ' + session.jid + ' removed.');
 
-      //TODO clean up
+      //@TODO clean up
    },
 
    /**
@@ -9132,7 +9122,7 @@ jsxc.gui.template['aboutDialog'] = '<h3>JavaScript XMPP Chat</h3>\n' +
 '</p>\n' +
 '<p class="jsxc_libraries">\n' +
 '   <b>Libraries: </b>\n' +
-'   <a href="http://strophe.im/strophejs/">strophe.js</a> (multiple), <a href="https://github.com/strophe/strophejs-plugins">strophe.js/muc</a> (MIT), <a href="https://github.com/strophe/strophejs-plugins">strophe.js/disco</a> (MIT), <a href="https://github.com/strophe/strophejs-plugins">strophe.js/caps</a> (MIT), <a href="https://github.com/strophe/strophejs-plugins">strophe.js/vcard</a> (MIT), <a href="https://github.com/strophe/strophejs-plugins/tree/master/bookmarks">strophe.js/bookmarks</a> (MIT), <a href="https://github.com/strophe/strophejs-plugins/tree/master/dataforms">strophe.js/x</a> (MIT), <a href="https://github.com/sualko/strophe.jinglejs">strophe.jinglejs</a> (MIT), <a href="https://github.com/neoatlantis/node-salsa20">Salsa20</a> (AGPL3), <a href="www.leemon.com">bigint</a> (public domain), <a href="code.google.com/p/crypto-js">cryptojs</a> (code.google.com/p/crypto-js/wiki/license), <a href="http://git.io/ee">eventemitter</a> (MIT), <a href="https://arlolra.github.io/otr/">otr.js</a> (MPL v2.0), <a href="http://i18next.com/">i18next</a> (MIT), <a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a> (MIT), <a href="https://github.com/ejci/favico.js">favico.js</a> (MIT)\n' +
+'   <$ dep.libraries $>\n' +
 '</p>\n' +
 '\n' +
 '<button class="btn btn-default pull-right jsxc_debuglog">Show debug log</button>\n' +

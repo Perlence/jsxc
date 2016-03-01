@@ -568,7 +568,10 @@ jsxc.webrtc = {
       var bid = jsxc.jidToBid(session.peer);
 
       if (this.localStream) {
-         this.localStream.stop();
+         var tracks = this.localStream.getTracks();
+         tracks.forEach(function(track) {
+            track.stop();
+         });
       }
 
       if ($('.jsxc_videoContainer').length) {
