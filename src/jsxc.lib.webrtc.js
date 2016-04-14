@@ -516,16 +516,7 @@ jsxc.webrtc = {
 
       jsxc.webrtc.last_caller = session.peerID;
 
-      if (jsxc.webrtc.AUTO_ACCEPT) {
-         self.reqUserMedia();
-         return;
-      }
-
-      var dialog = jsxc.gui.dialog.open(jsxc.gui.template.get('incomingCall', bid), {
-         noClose: true
-      });
-
-      dialog.find('.jsxc_accept').click(function() {
+      function acceptCall() {
          $(document).trigger('accept.call.jsxc');
 
          jsxc.switchEvents({
@@ -542,7 +533,18 @@ jsxc.webrtc = {
          });
 
          self.reqUserMedia();
+      }
+
+      if (jsxc.webrtc.AUTO_ACCEPT) {
+         acceptCall();
+         return;
+      }
+
+      var dialog = jsxc.gui.dialog.open(jsxc.gui.template.get('incomingCall', bid), {
+         noClose: true
       });
+
+      dialog.find('.jsxc_accept').click(acceptCall);
 
       dialog.find('.jsxc_reject').click(function() {
          jsxc.gui.dialog.close();
